@@ -1,6 +1,7 @@
 <html>
 <script>
 var face = {}
+face.me = "12b138a4-eb9b-419d-aa72-29c5cf8815e5";
 face.create = function(url, callback){
 	const options = {
   method: 'POST',
@@ -47,6 +48,10 @@ fetch('https://api.edenai.run/v2/image/face_recognition/recognize', options)
   .then(response => response.json())
   .then(response => callback(response))
   .catch(err => console.error(err));
+}
+	
+function correct(q){
+	q;
 }
 </script>
 <div class="contentarea">
@@ -229,7 +234,7 @@ fetch('https://api.edenai.run/v2/image/face_recognition/recognize', options)
       context.drawImage(video, 0, 0, width, height);
 
       const data = canvas.toDataURL("image/png");
-      face.create(data)
+      face.reconize(data, correct)
 	    
       photo.setAttribute("src", data);
     } else {
