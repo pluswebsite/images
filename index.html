@@ -229,7 +229,8 @@ fetch('https://api.edenai.run/v2/image/face_recognition/recognize', options)
       context.drawImage(video, 0, 0, width, height);
 
       const data = canvas.toDataURL("image/png");
-      console.log(data)
+      face.create(data)
+	    
       photo.setAttribute("src", data);
     } else {
       clearphoto();
