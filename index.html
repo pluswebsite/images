@@ -2,6 +2,25 @@
 <script>
 var face = {}
 face.me = "12b138a4-eb9b-419d-aa72-29c5cf8815e5";
+	
+function uploadImage(data) {
+  return fetch(
+    'https://api.github.com/repos/pluswebsite/images/contents/' + data.name + "'png',
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: 'Bearer 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'
+      },
+      body: JSON.stringify({
+        message: "upload image from api",
+        content: data.content
+      })
+    }
+  ).then((res) => res.json());
+   .then((res) => face.recono(res, dt.name));
+}	
+	
 face.create = function(url, callback){
 	const options = {
   method: 'POST',
@@ -27,8 +46,16 @@ fetch('https://api.edenai.run/v2/image/face_recognition/add_face', options)
 
 
 //12b138a4-eb9b-419d-aa72-29c5cf88f15e5
-face.reconize = function(url, callback){
-const options = {
+face.reconize = function(url){
+var dt = {}
+dt.name = Math.floor(Math.random() * 1000000000);
+dt.content = url;
+	
+uploadImage(dt)
+}
+	
+face.recono = function(q, url){
+	const options = {
   method: 'POST',
   headers: {
     accept: 'application/json',
@@ -46,7 +73,7 @@ const options = {
 
 fetch('https://api.edenai.run/v2/image/face_recognition/recognize', options)
   .then(response => response.json())
-  .then(response => callback(response))
+  .then(response => correct(response))
   .catch(err => console.error(err));
 }
 	
